@@ -7,8 +7,11 @@ __Package:__ Pandas, Numpy, Matplotlib,
 >Part I. Data Wrangling
 <img src="https://user-images.githubusercontent.com/31917400/34901191-0310e346-f7ff-11e7-8c37-41861c544ca4.jpg" width="500" height="100" />
 
-
-
+ - the number of rows ?
+```
+df.info(),df.converted.unique(),df.landing_page.unique(),df.group.unique()
+```
+<img src="https://user-images.githubusercontent.com/31917400/34901245-afc6cb1e-f7ff-11e7-8bf9-aa1624cfb0ef.jpg" />
 
 
 
