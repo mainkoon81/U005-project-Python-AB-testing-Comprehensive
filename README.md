@@ -144,7 +144,19 @@ z_score, p_value
 ```
 <img src="https://user-images.githubusercontent.com/31917400/34902100-6c8a4940-f80c-11e7-9035-821f0426d668.jpg" />
 
+```
+# Before this test began, we would have picked a significance level. Let's just say it's 95%. According to the Hypothesis setting
+#, it's a one-tail test so a z-score past 1.64 will be significant. (if two-tail, then -1.96 to 1.96)
 
+from scipy.stats import norm
+
+norm.cdf(z_score), norm.ppf(1-(0.05))
+# 0.90505831275902449 # Tells us how significant our z-score is
+
+
+# 1.6448536269514722 (one-tail)
+# 1.959963984540054 (two-tail: norm.ppf(1-(0.05/2))) # Tells us what our critical value at 95% confidence is
+```
 
 
 
