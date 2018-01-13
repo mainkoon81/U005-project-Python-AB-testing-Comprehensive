@@ -154,7 +154,7 @@ norm.ppf(1-(0.05/2)) # 1.959963984540054 (two-tail critical value at 95% confide
 ```
 P-value is 0.905 so we cannot reject the null hypothesis that **the difference between the two proportions is no different from zero.** The result from this z-test matches exactly our previous simulation and the P-value here as well.
 
-## Part IV. A regression approach
+## Part IV. Regression Approach
 >The result we acheived in the previous A/B test can also be acheived by performing regression ? Since each row is either a conversion or no conversion, we perform a Logistic regression with categorical predictors. 
  - Use `statsmodels` to fit the regression model to see if there is a significant difference in conversion based on which page a customer receives. We first need to create a column for the **intercept**, and create a **dummy variable** column for which page each user received. Add an intercept column, as well as an __ab_page__ column, which is 1 when an individual receives the treatment and 0 if control.
 ```
