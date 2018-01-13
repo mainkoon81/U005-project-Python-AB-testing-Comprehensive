@@ -52,17 +52,30 @@ df2[df2.user_id.duplicated()]
 ```
 <img src="https://user-images.githubusercontent.com/31917400/34901456-6f63ba7a-f802-11e7-8b99-e153c6834f09.jpg" />
 
-
-
-
-
-
-
-
-
-
-
-
+ - the row information for the repeat user_id ?
+```
+df2.iloc[146678]
+```
+ - Remove one of the rows with a duplicate user_id - drop the desired value using the index directly.
+```
+df2 = df2.drop(146678)
+df2 = df2.reset_index(drop=True)
+df2.iloc[146678]
+```
+>Part II. Statistics
+ - The probability of an individual converting regardless of the page they receive --- 0.11959708724499628
+```
+df2.converted.mean()
+```
+ - Given that an individual was in the control group, the probability they converted ? or Given that an individual was in the treatment group, the probability they converted? --- 0.1203863045004612, 0.11880806551510564
+```
+df2.query('group == "control"').converted.mean(), df2.query('group == "treatment"').converted.mean()
+```
+ - The probability that an individual received the new page ? --- 0.5000619442226688
+```
+df2.query('landing_page == "new_page"').user_id.size / df2.user_id.size
+```
+The probability of conversion in general is 11.9%. In **"control Grp", it's 12%** and **in "treatment Grp", it's 11.8%.** Thus we don't have enough clue to say the new treatment page leads to more conversions. Here, the difference of their probabilities is 0.118808 - 0.120386 = -0.001576 
 
 
 
