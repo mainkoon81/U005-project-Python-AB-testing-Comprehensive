@@ -137,20 +137,20 @@ n_new = df2.query('group == "treatment"').user_id.size
 
 convert_old, convert_new, n_old, n_new
 ```
- - Z-TEST with 'statsmodels'--- (1.3109241984234394, 0.18988337448195103) but here, P_value is for two_tailed test..we need one tailed test. 
+ - Z-TEST with `statsmodels`--- (1.3109241984234394, 0.18988337448195103) but here, P_value is for two_tailed test..we need one tailed test. 
 ```
 z_score, p_value = sm.stats.proportions_ztest([convert_old, convert_new], [n_old, n_new])
 z_score, p_value 
 ```
 <img src="https://user-images.githubusercontent.com/31917400/34907965-96cf0c7c-f87f-11e7-9d44-0c4d117343ee.jpg" />
 
- - Find **P-Value** with 'scipy'. Before this test began, we would have picked a significance level. Let's just say it's 95%. According to the Hypothesis setting, it's an one-tail test so a z-score past 1.64 will be significant. (if two-tail, then -1.96 to 1.96)
+ - Find **P-Value** with `scipy` --- (0.90505831275902449). Before this test began, we would have picked a significance level. Let's just say it's 95%. According to the Hypothesis setting, it's an one-tail test so a z-score past 1.64 will be significant. (if two-tail, then -1.96 to 1.96)
 ```
 from scipy.stats import norm
 norm.cdf(z_score)  # 0.90505831275902449 # Tells us how significant our z-score is. ie. shows the area our z-score generates!
 
-norm.ppf(1-(0.05))  # 1.6448536269514722 (one-tail)
-norm.ppf(1-(0.05/2)) # 1.959963984540054 (two-tail) # Tells us what our critical value at 95% confidence is
+norm.ppf(1-(0.05))  # 1.6448536269514722 (one-tail critical value at 95% confidence)
+norm.ppf(1-(0.05/2)) # 1.959963984540054 (two-tail critical value at 95% confidence)
 ```
 
 
