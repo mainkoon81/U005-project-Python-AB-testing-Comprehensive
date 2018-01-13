@@ -99,7 +99,7 @@ new_page_converted = np.random.choice([0,1], size=145310, p=[1-0.1196, 0.1196])
 old_page_converted = np.random.choice([0,1], size=145274, p=[1-0.1196, 0.1196])
 new_page_converted.mean() - old_page_converted.mean()
 ```
- - Let's create a list consists of 10,000 different conversion rates yielded from multiple bootstrapping! then plot to compare this distribution with the observed difference!
+ - Let's create a list consists of 10,000 different conversion rates yielded from multiple bootstrapping! then plot to compare this 'p_diffs' distribution with the observed difference!
 ```
 p_diffs = []
 
@@ -111,13 +111,16 @@ for i in range(10000):
     p_diffs.append(p_new - p_old)
 
 p_diffs = np.array(p_diffs) 
+
 plt.hist(p_diffs)
 plt.axvline(x=-0.001576, color='r')
 ```
 <img src="https://user-images.githubusercontent.com/31917400/34901942-9f445342-f809-11e7-977f-620be13487f4.jpg" />
 
-
-
+ - P-Value: What proportion of the 'p_diffs' are greater than the actual difference observed in df2 ? --- 90%
+```
+(p_diffs > -0.001576).mean()
+```
 
 
 
