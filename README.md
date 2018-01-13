@@ -75,7 +75,7 @@ df2.query('group == "control"').converted.mean(), df2.query('group == "treatment
 ```
 df2.query('landing_page == "new_page"').user_id.size / df2.user_id.size
 ```
-The probability of conversion in general is 11.9%. In **"control Grp", it's 12%** and **in "treatment Grp", it's 11.8%.** Thus we don't have enough clue to say the new treatment page leads to more conversions. Here, the difference of their Conversion-probabilities is `0.118808 - 0.120386 = -0.001576` 
+The probability of conversion in general is 11.9%. In **"control Grp", it's 12%** and **in "treatment Grp", it's 11.8%.** Thus we don't have enough clue to say the new treatment page leads to more conversions. Here, the difference of their Conversion-probabilities is `0.118808 - 0.120386 = -0.001576` This is the **observed** difference of conversion rate!
 
 >Notice that because of the time stamp associated with each event, you could technically run a hypothesis test continuously as each observation was observed. However, then the hard question is do you stop as soon as one page is considered significantly better than another or does it need to happen consistently for a certain amount of time? How long do you run to render a decision that neither page is better than another? These questions are the difficult parts associated with A/B tests in general.
 
@@ -88,21 +88,33 @@ The probability of conversion in general is 11.9%. In **"control Grp", it's 12%*
  - Perform the sampling distribution for the difference in converted between the two pages over 10,000 iterations of calculating an estimate from the null. 
  - Here we are looking at the Null where there is no difference in conversion based on the page, which means the conversions for each page are the same.
 
- - Bootstrapping - How many sample ? --- new:145310, old:145274
+ - 1st Bootstrapping - How many sample ? --- new:145310, old:145274
 ```
 df2.query('group == "treatment"').user_id.size
 df2.query('group == "control"').user_id.size
 ```
- - Bootstrapping - Simulate transactions with a convert rate of both under the null. What's the difference of their conversion rate? 
+ - 1st Bootstrapping - Simulate transactions with a convert rate of both **under the null**. What's the difference of their conversion rate? --- It's -0.0003 which can change all the time. Is this difference significant ?  We will iterate this process multiple times - 10,000! 
 ```
 new_page_converted = np.random.choice([0,1], size=145310, p=[1-0.1196, 0.1196])
 old_page_converted = np.random.choice([0,1], size=145274, p=[1-0.1196, 0.1196])
 new_page_converted.mean() - old_page_converted.mean()
 ```
-**It's -0.0003** Do you think this difference is significant ? 
+ - Let's create a list consists of 10,000 different conversion rates yielded from multiple bootstrapping! then plot to compare this distribution with the observed difference!
+```
+p_diffs = []
 
- - 
+for i in range(10000):
+    control_df = np.random.choice([0,1], size=145274, p=[1-0.1196, 0.1196])
+    treat_df = np.random.choice([0,1], size=145310, p=[1-0.1196, 0.1196])
+    p_old = control_df.mean()
+    p_new = treat_df.mean()
+    p_diffs.append(p_new - p_old)
 
+p_diffs = np.array(p_diffs) 
+plt.hist(p_diffs)
+plt.axvline(x=-0.001576, color='r')
+```
+<img src="https://user-images.githubusercontent.com/31917400/34901942-9f445342-f809-11e7-977f-620be13487f4.jpg" />
 
 
 
