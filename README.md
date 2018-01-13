@@ -122,8 +122,26 @@ plt.title('Distribution of p_diffs')
 ```
 (p_diffs > -0.001576).mean()
 ```
-We cannot reject H0 because of P-Value(0.9 > 0.05) which means the difference is very insignificant with the probability of 0.9 and the new page is never better than the old.** In other words, the actual difference observed in df2 is -0.001576, which should be considered 'insignificant.' 
+>We cannot reject H0 because of P-Value(0.9 > 0.05) which means the difference is very insignificant with the probability of 0.9 and the new page is never better than the old.** In other words, the actual difference observed in df2 is -0.001576, which should be considered 'insignificant.' 
 
+We could also use a built-in to achieve similar results. Though using the built-in might be easier to code, the above portions are a walkthrough of the ideas that are critical to correctly thinking about statistical significance. 
+
+ - Let's prepare 'z-test'! SIZE ? --- (17489, 17264, 145274, 145310)
+```
+import statsmodels.api as sm
+
+convert_old = df2.query('group == "control" and converted == 1').user_id.size
+convert_new = df2.query('group == "treatment" and converted == 1').user_id.size
+n_old = df2.query('group == "control"').user_id.size
+n_new = df2.query('group == "treatment"').user_id.size
+convert_old, convert_new, n_old, n_new
+```
+ - Z-TEST --- (1.3109241984234394, 0.18988337448195103) but here, P_value is for two_tailed test..we need one tailed test. 
+<img src="https://user-images.githubusercontent.com/31917400/34902100-6c8a4940-f80c-11e7-9035-821f0426d668.jpg" />
+```
+z_score, p_value = sm.stats.proportions_ztest([convert_old, convert_new], [n_old, n_new])
+z_score, p_value 
+```
 
 
 
