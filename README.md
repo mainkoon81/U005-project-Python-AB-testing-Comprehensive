@@ -137,7 +137,7 @@ n_new = df2.query('group == "treatment"').user_id.size
 
 convert_old, convert_new, n_old, n_new
 ```
- - Z-TEST with `statsmodels`--- (1.3109241984234394, 0.18988337448195103) but here, P_value is for two_tailed test..we need one tailed test. 
+ - Find **Z-score** (Z-TEST) with `statsmodels`--- (1.3109241984234394, 0.18988337448195103) but here, P_value is for two_tailed test. We need one tailed test. 
 ```
 z_score, p_value = sm.stats.proportions_ztest([convert_old, convert_new], [n_old, n_new])
 z_score, p_value 
