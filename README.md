@@ -63,7 +63,7 @@ df2 = df2.reset_index(drop=True)
 df2.iloc[146678]
 ```
 ## Part II. Statistics
- - The probability of an individual converting regardless of the page they receive --- `0.1195970872449962`
+ - The probability of an individual converting regardless of the page they receive --- `0.11959708724499628`
 ```
 df2.converted.mean()
 ```
@@ -86,16 +86,22 @@ The probability of conversion in general is 11.9%. In **"control Grp", it's 12%*
 >Under the null hypothesis, assume they are equal to the converted rate in df2 regardless of the page. (The conversion rate under the Null = `**0.11959708724499628**` as calculated above). 
  - Use a sample size for each page equal to the ones in
  - Perform the sampling distribution for the difference in converted between the two pages over 10,000 iterations of calculating an estimate from the null. 
+ - Here we are looking at the Null where there is no difference in conversion based on the page, which means the conversions for each page are the same.
 
+ - Bootstrapping - How many sample ? --- new:145310, old:145274
+```
+df2.query('group == "treatment"').user_id.size
+df2.query('group == "control"').user_id.size
+```
+ - Bootstrapping - Simulate transactions with a convert rate of both under the null. What's the difference of their conversion rate? 
+```
+new_page_converted = np.random.choice([0,1], size=145310, p=[1-0.1196, 0.1196])
+old_page_converted = np.random.choice([0,1], size=145274, p=[1-0.1196, 0.1196])
+new_page_converted.mean() - old_page_converted.mean()
+```
+**It's -0.0003** Do you think this difference is significant ? 
 
-
-
-
-
-
-
-
-
+ - 
 
 
 
