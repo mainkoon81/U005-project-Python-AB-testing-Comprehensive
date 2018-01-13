@@ -142,7 +142,7 @@ convert_old, convert_new, n_old, n_new
 z_score, p_value = sm.stats.proportions_ztest([convert_old, convert_new], [n_old, n_new])
 z_score, p_value 
 ```
-<img src="https://user-images.githubusercontent.com/31917400/34902100-6c8a4940-f80c-11e7-9035-821f0426d668.jpg" />
+<img src="https://user-images.githubusercontent.com/31917400/34907965-96cf0c7c-f87f-11e7-9d44-0c4d117343ee.jpg" />
 
  - Find **P-Value** with 'scipy'. Before this test began, we would have picked a significance level. Let's just say it's 95%. According to the Hypothesis setting, it's an one-tail test so a z-score past 1.64 will be significant. (if two-tail, then -1.96 to 1.96)
 ```
