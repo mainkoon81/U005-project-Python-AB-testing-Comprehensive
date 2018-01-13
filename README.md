@@ -122,7 +122,8 @@ plt.title('Distribution of p_diffs')
 ```
 (p_diffs > -0.001576).mean()
 ```
-We cannot reject H0 because of P-Value(0.9 > 0.05) which means the difference is very insignificant with the probability of 0.9 and the new page is never better than the old.** In other words, the actual difference observed in ab_data.csv is -0.001576, which should be considered 'insignificant'
+We cannot reject H0 because of P-Value(0.9 > 0.05) which means the difference is very insignificant with the probability of 0.9 and the new page is never better than the old.** In other words, the actual difference observed in df2 is -0.001576, which should be considered 'insignificant.' 
+
 
 
 
