@@ -82,9 +82,9 @@ The probability of conversion in general is 11.9%. In **"control Grp", it's 12%*
 >For now, consider you need to make the decision just based on all the data provided. If you want to assume that the old page is better unless the new page proves to be definitely better at a Type I error rate of 5%, our null and alternative hypotheses be...
 <img src="https://user-images.githubusercontent.com/31917400/34901652-32d54eae-f805-11e7-9f43-32dc5d3723b9.jpg" />
 
-## Part III. Bootstrapping
+## Part III. Bootstrapping (Additional psuedo Experiments ?)
 >Under the null hypothesis, assume they are equal to the converted rate in df2 regardless of the page. (The conversion rate under the Null = `**0.11959708724499628**` as calculated above). 
- - Use a sample size for each page equal to the ones in
+ - Use a sample size for each page equal to the ones in df2.
  - Perform the sampling distribution for the difference in converted between the two pages over 10,000 iterations of calculating an estimate from the null. 
  - Here we are looking at the Null where there is no difference in conversion based on the page, which means the conversions for each page are the same.
 
@@ -122,7 +122,7 @@ plt.title('Distribution of p_diffs')
 ```
 (p_diffs > -0.001576).mean()
 ```
-
+We cannot reject H0 because of P-Value(0.9 > 0.05) which means the difference is very insignificant with the probability of 0.9 and the new page is never better than the old.** In other words, the actual difference observed in ab_data.csv is -0.001576, which should be considered 'insignificant'
 
 
 
