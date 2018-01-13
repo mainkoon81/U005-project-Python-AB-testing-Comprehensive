@@ -134,6 +134,7 @@ convert_old = df2.query('group == "control" and converted == 1').user_id.size
 convert_new = df2.query('group == "treatment" and converted == 1').user_id.size
 n_old = df2.query('group == "control"').user_id.size
 n_new = df2.query('group == "treatment"').user_id.size
+
 convert_old, convert_new, n_old, n_new
 ```
  - Z-TEST --- (1.3109241984234394, 0.18988337448195103) but here, P_value is for two_tailed test..we need one tailed test. 
