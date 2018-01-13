@@ -154,7 +154,7 @@ norm.ppf(1-(0.05/2)) # 1.959963984540054 (two-tail critical value at 95% confide
 ```
 P-value is 0.905 so we cannot reject the null hypothesis that **the difference between the two proportions is no different from zero.** The result from this z-test matches exactly our previous simulation and the P-value here as well.
 
-## Part III. A regression approach
+## Part IV. A regression approach
 >The result we acheived in the previous A/B test can also be acheived by performing regression ? Since each row is either a conversion or no conversion, we perform a Logistic regression with categorical predictors. 
  - Use `statsmodels` to fit the regression model to see if there is a significant difference in conversion based on which page a customer receives. We first need to create a column for the **intercept**, and create a **dummy variable** column for which page each user received. Add an intercept column, as well as an __ab_page__ column, which is 1 when an individual receives the treatment and 0 if control.
 ```
@@ -177,49 +177,29 @@ result.summary()
 ```
 <img src="https://user-images.githubusercontent.com/31917400/34908322-71b57042-f885-11e7-8f49-29025e245777.jpg" />
 
+P-value is 0.19 which means 'ab_page' is not that significant in predicting whether or not the individual converts. H0 in this model is that the **'ab_page' is totally insignificant in predicting the responses** and we cannot reject H0.  
 
+ - Now along with testing if the conversion rate changes for different pages, also add an effect based on which country a user lives. You will need to read in the 'countries.csv' dataset and merge together your datasets on the approporiate rows. Does it appear that country had an impact on conversion? Don't forget to create dummy variables for these country columns. You will need **two columns for the three dummy variables.**
+```
+countries_df = pd.read_csv('C:/Users/Minkun/Desktop/classes_1/NanoDeg/1.Data_AN/L4/project 4/AnalyzeABTestResults 2/countries.csv')
+df_new = countries_df.set_index('user_id').join(df2.set_index('user_id'), how='inner')
+df_new.head()
+```
+<img src="https://user-images.githubusercontent.com/31917400/34908404-344b6732-f887-11e7-9e4b-4c5d34b78c1a.jpg" />
 
+```
+df_new.country.unique() 
+df_new[['US','UK','CA']] = pd.get_dummies(df_new['country'])
+df_new.head()
+```
+<img src="https://user-images.githubusercontent.com/31917400/34908466-d707056c-f887-11e7-8332-834c2679c943.jpg" />
 
+```
+log_model_2 = sm.Logit(df_new['converted'], df_new[['intercept','ab_page','US','UK']])
+result = log_model_2.fit()
+result.summary()
+```
+<img src="https://user-images.githubusercontent.com/31917400/34908472-f19e1b90-f887-11e7-8350-83c7c35dc424.jpg" />
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+Though you have now looked at the individual factors of country and page on conversion, we would now like to look at an interaction between page and country to see if there significant effects on conversion. 
 
