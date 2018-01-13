@@ -75,7 +75,12 @@ df2.query('group == "control"').converted.mean(), df2.query('group == "treatment
 ```
 df2.query('landing_page == "new_page"').user_id.size / df2.user_id.size
 ```
-The probability of conversion in general is 11.9%. In **"control Grp", it's 12%** and **in "treatment Grp", it's 11.8%.** Thus we don't have enough clue to say the new treatment page leads to more conversions. Here, the difference of their probabilities is 0.118808 - 0.120386 = -0.001576 
+The probability of conversion in general is 11.9%. In **"control Grp", it's 12%** and **in "treatment Grp", it's 11.8%.** Thus we don't have enough clue to say the new treatment page leads to more conversions. Here, the difference of their Conversion-probabilities is `0.118808 - 0.120386 = -0.001576` 
+
+>Notice that because of the time stamp associated with each event, you could technically run a hypothesis test continuously as each observation was observed. However, then the hard question is do you stop as soon as one page is considered significantly better than another or does it need to happen consistently for a certain amount of time? How long do you run to render a decision that neither page is better than another? These questions are the difficult parts associated with A/B tests in general.
+
+>For now, consider you need to make the decision just based on all the data provided. If you want to assume that the old page is better unless the new page proves to be definitely better at a Type I error rate of 5%, our null and alternative hypotheses be...
+<img src="https://user-images.githubusercontent.com/31917400/34901652-32d54eae-f805-11e7-9f43-32dc5d3723b9.jpg" />
 
 
 
