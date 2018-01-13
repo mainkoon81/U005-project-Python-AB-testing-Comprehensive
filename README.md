@@ -17,7 +17,7 @@ df.info(),df.converted.unique(),df.landing_page.unique(),df.group.unique()
 ``` 
 df.user_id.nunique()
 ```
- - the proportion of users converted ? --- 0.11965919355605512
+ - the proportion of users converted ? --- `0.11965919355605512`
 ```
 df.query('converted == 1').user_id.size / df.user_id.size
 ```
@@ -63,7 +63,7 @@ df2 = df2.reset_index(drop=True)
 df2.iloc[146678]
 ```
 ## Part II. Statistics
- - The probability of an individual converting regardless of the page they receive --- 0.11959708724499628
+ - The probability of an individual converting regardless of the page they receive --- `0.1195970872449962`
 ```
 df2.converted.mean()
 ```
@@ -83,7 +83,7 @@ The probability of conversion in general is 11.9%. In **"control Grp", it's 12%*
 <img src="https://user-images.githubusercontent.com/31917400/34901652-32d54eae-f805-11e7-9f43-32dc5d3723b9.jpg" />
 
 ## Part III. Bootstrapping
->Under the null hypothesis, assume they are equal to the converted rate in df2 regardless of the page. (The conversion rate under the Null = **0.11959708724499628** as calculated above). 
+>Under the null hypothesis, assume they are equal to the converted rate in df2 regardless of the page. (The conversion rate under the Null = `**0.11959708724499628**` as calculated above). 
  - Use a sample size for each page equal to the ones in
  - Perform the sampling distribution for the difference in converted between the two pages over 10,000 iterations of calculating an estimate from the null. 
 
