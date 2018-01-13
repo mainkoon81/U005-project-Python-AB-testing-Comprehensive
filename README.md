@@ -152,6 +152,65 @@ norm.cdf(1.3109241984234394)  # 0.90505831275902449 # How significant our z-scor
 norm.ppf(1-(0.05))  # 1.6448536269514722 (one-tail critical value at 95% confidence)
 norm.ppf(1-(0.05/2)) # 1.959963984540054 (two-tail critical value at 95% confidence)
 ```
+P-value is 0.905 so we cannot reject the null hypothesis that **the difference between the two proportions is no different from zero.** The result from this z-test matches exactly our previous simulation and the P-value here as well.
+
+## Part III. A regression approach
+>The result we acheived in the previous A/B test can also be acheived by performing regression ? Since each row is either a conversion or no conversion, we perform a Logistic regression with categorical predictors. 
+ - Use `statsmodels` to fit the regression model to see if there is a significant difference in conversion based on which page a customer receives. We first need to create a column for the **intercept**, and create a **dummy variable** column for which page each user received. Add an intercept column, as well as an __ab_page__ column, which is 1 when an individual receives the treatment and 0 if control.
+```
+df2['intercept'] = 1
+
+df2[['new_page','old_page']] = pd.get_dummies(df2['landing_page'])
+df2['ab_page'] = pd.get_dummies(df2['group'])['treatment']
+```
+<img src="https://user-images.githubusercontent.com/31917400/34908277-e02a2370-f884-11e7-8702-36f10178b199.jpg" />
+
+ - Instantiate the model, and fit the model using the two columns you created previously to predict whether or not an individual converts.
+```
+import statsmodels.api as sm
+from scipy import stats
+stats.chisqprob = lambda chisq, df: stats.chi2.sf(chisq, df)
+
+log_model = sm.Logit(df2['converted'], df2[['intercept', 'ab_page']])
+result = log_model.fit()
+result.summary()
+```
+<img src="https://user-images.githubusercontent.com/31917400/34908322-71b57042-f885-11e7-8f49-29025e245777.jpg" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
