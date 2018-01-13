@@ -114,8 +114,9 @@ p_diffs = np.array(p_diffs)
 
 plt.hist(p_diffs)
 plt.axvline(x=-0.001576, color='r')
+plt.title('Distribution of p_diffs')
 ```
-<img src="https://user-images.githubusercontent.com/31917400/34901942-9f445342-f809-11e7-977f-620be13487f4.jpg" />
+<img src="https://user-images.githubusercontent.com/31917400/34901989-70199144-f80a-11e7-8702-0e6b63c6f264.jpg" />
 
  - P-Value: What proportion of the 'p_diffs' are greater than the actual difference observed in df2 ? --- 90%
 ```
